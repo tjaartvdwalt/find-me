@@ -1,0 +1,49 @@
+image: node:7.4.0
+
+stages:
+  - build
+  - test
+  - deploy
+
+build client:
+  stage: build
+  script:
+    - npm install
+    - npm run bundle
+    
+  artifacts:
+    paths:
+      - client/dist/
+      - node_modules/
+  
+test:
+  stage: test
+  only:
+    - master
+
+  script:
+    - npm test
+    
+  artifacts:
+    paths:
+      - client/dist/
+
+pages:
+  image: alpine:latest
+  stage: deploy
+  script:
+  - mkdir public
+  - cp client/dist/* public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+
+# webtask:
+#   stage: deploy
+#   only:
+#     - master
+
+#   script:
+#     - npm install -g @xervo/cli

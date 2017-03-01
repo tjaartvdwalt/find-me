@@ -1,0 +1,19 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  flex-wrap: wrap;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.cell {
+  flex-grow: 1;
+  margin: 2px;
+  max-width: 80px;
+}
+
+div.required:after {
+  color: red;
+  content: "*";
+}

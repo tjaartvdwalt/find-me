@@ -1,4 +1,5 @@
 import Auth0Lock from 'auth0-lock'
+import Config from 'Config'
 import { browserHistory } from 'react-router'
 
 const AuthService = class {
@@ -6,7 +7,7 @@ const AuthService = class {
     // Configure Auth0
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-        redirectUrl: 'http://localhost:8080',
+        redirectUrl: Config.callbackUrl,
         responseType: 'token'
       }
     })

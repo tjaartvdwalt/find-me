@@ -65,7 +65,7 @@ module.exports = {
   },
 
   externals: {
-    'Config': JSON.stringify(process.env.NODE_ENV === 'production' ? {
+    'Config': JSON.stringify(process.env.ENV === 'production' ? {
       callbackUrl: 'https://tjaart.gitlab.io/find-me'
     } : {
       callbackUrl: 'http://localhost:8080'

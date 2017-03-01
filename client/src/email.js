@@ -1,21 +1,24 @@
+import Config from 'Config'
+import AppBar from 'material-ui/AppBar'
+import Toggle from 'material-ui/Toggle'
+import RaisedButton from 'material-ui/RaisedButton'
+import Snackbar from 'material-ui/Snackbar'
+import TextField from 'material-ui/TextField'
+
 import React from 'react'
-import { ToastContainer, ToastMessage } from 'react-toastr'
 import xhr from 'xhr'
 
 import 'animate.css/animate.css'
 import 'toastr/toastr.scss'
 import './email.scss'
 
-const ToastMessageFactory = React.createFactory(ToastMessage.animation)
-
 export default class extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {lat: 0, lon: 0, message: '', email: ''}
+    this.state = {lat: 0, lon: 0, customLocation: false, email: '', subject: 'my locations', message: '', snackbar: {active: false, message: '', type: ''}}
 
     this.handleChange = this.handleChange.bind(this)
     this.submit = this.submit.bind(this)
-    this.sendToast = this.sendToast.bind(this)
   }
 
   componentWillMount () {
@@ -51,39 +54,44 @@ export default class extends React.Component {
   }
 
   submit (e) {
-    console.log('submit')
-    var url = `https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/email-my-location?to=${this.state.email}&lat=${this.state.lat}&lon=${this.state.lon}&message=${this.state.message}`
+    var url = `${Config.webtaskUrl}?to=${this.state.email}&lat=${this.state.lat}&lon=${this.state.lon}&message=${this.state.message}`
     xhr.get(url, (err, resp) => {
-      console.log(resp)
       if (err) {
-        this.sendToast({type: 'error', title: 'Failed to send mail', message: err})
+        this.setState(Object.assign({}, this.state, {snackbar: {active: true, type: 'error', message: err}}))
+        // this.sendToast({type: 'error', title: 'Failed to send mail', })
         console.error(err)
       } else {
-        console.log(resp.rawRequest.response)
         if (resp.statusCode >= 400) {
-          this.sendToast({type: 'error', title: 'Delivery failure', message: JSON.parse(resp.rawRequest.response).details})
+          this.setState(Object.assign({}, this.state, {snackbar: {active: true, type: 'error', message: JSON.parse(resp.rawRequest.response).details}}))
+          // this.sendToast({type: 'error', title: 'Delivery failure', })
         } else {
-          this.sendToast({type: 'success', title: 'Email sent', message: 'Your email was successfully delivered'})
+          this.setState(Object.assign({}, this.state, {snackbar: {active: true, type: 'success', message: 'Your email was successfully delivered'}}))
+          // this.sendToast({type: 'success', title: 'Email sent', })
         }
       }
     })
   }
 
   handleChange (e) {
-    console.log('handleChange')
     var newState
-    switch (e.target.name) {
+    switch (e.target.id) {
       case 'lat':
         newState = Object.assign({}, this.state, {lat: e.target.value})
         break
       case 'lon':
         newState = Object.assign({}, this.state, {lon: e.target.value})
         break
+      case 'subject':
+        newState = Object.assign({}, this.state, {subject: e.target.value})
+        break
       case 'message':
         newState = Object.assign({}, this.state, {message: e.target.value})
         break
       case 'email':
         newState = Object.assign({}, this.state, {email: e.target.value})
+        break
+      case 'customLocation':
+        newState = Object.assign({}, this.state, {customLocation: !this.state.customLocation})
         break
       default:
       // leave state unchanged!
@@ -92,36 +100,81 @@ export default class extends React.Component {
     this.setState(newState)
   }
 
+  showMenu () {
+    console.log('should implement')
+  }
+
   render () {
     return (
-      <div className="grid">
-        <ToastContainer
-          toastMessageFactory={ToastMessageFactory}
-          ref="container"
-          className="toast-top-right"
+        <div className="container">
+        <AppBar title="Find Me"
+      onLeftIconButtonTouchTap={this.showMenu}
         />
-        <h3>Share your location</h3>
-        <p>Send a Google maps link of your location to a friend.</p>
-        <div className="row">
-          <div className="cell required"><label htmlFor="lat">latitude</label></div>
-          <div className="cell"><input name="lat" type="number" onChange={this.handleChange} value={this.state.lat} required/></div>
+
+        <div>
+        <TextField
+      id="email"
+      floatingLabelText="Email Addresses"
+      onChange={this.handleChange}
+      value={this.state.email}
+        />
         </div>
-        <div className="row">
-          <div className="cell required"><label htmlFor="lon">longitude</label></div>
-          <div className="cell"><input name="lon" type="number" onChange={this.handleChange} value={this.state.lon} required/></div>
-        </div >
-        <div className="row">
-          <div className="cell"><label htmlFor="message">message</label></div>
-          <div className="cell"><input name="message" type="text" onChange={this.handleChange} value={this.state.message}/></div>
+        <div>
+        <TextField
+      id="lat"
+      floatingLabelText="Latitude"
+      disabled={!this.state.customLocation}
+      value={this.state.lat}
+        />
         </div>
-        <div className="row">
-          <div className="cell required"><label htmlFor="email">email</label></div>
-          <div className="cell"><input name="email" type="email" onChange={this.handleChange} value={this.state.email} required/></div>
+        <div>
+        <TextField
+      id="lon"
+      floatingLabelText="Longitude"
+      disabled={!this.state.customLocation}
+      onChange={this.handleChange}
+      value={this.state.lon}
+        />
         </div>
-        <div className="row">
-          <input type="submit" onClick={this.submit}/>
+        <div>
+        <TextField
+      id="subject"
+      floatingLabelText="Subject"
+      onChange={this.handleChange}
+      value={this.state.subject}
+        />
         </div>
-      </div>
+        <div>
+        <TextField
+      id="message"
+      onChange={this.handleChange}
+      hintText="Add a Message to my email"
+      floatingLabelText="Message"
+      multiLine={true}
+      rows={3}
+      value={this.state.message}
+        />
+        </div>
+        <div>
+
+        <Toggle
+      id="customLocation"
+      label="Modify Location"
+      onClick={this.handleChange}
+        />
+        <RaisedButton
+      label="Send Mail"
+      primary={true}
+      onClick={this.submit}
+        />
+        </div>
+        <Snackbar
+      className={this.state.snackbar.type}
+      open={this.state.snackbar.active}
+      message={this.state.snackbar.message}
+      autoHideDuration={4000}
+        />
+        </div>
     )
   }
 }

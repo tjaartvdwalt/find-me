@@ -66,9 +66,12 @@ module.exports = {
 
   externals: {
     'Config': JSON.stringify(process.env.ENV === 'production' ? {
-      callbackUrl: 'https://tjaart.gitlab.io/find-me'
+      callbackUrl: 'https://tjaart.gitlab.io/find-me',
+      webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/find-me'
     } : {
-      callbackUrl: 'http://localhost:8080'
+      callbackUrl: 'http://localhost:8080',
+      // for now we use the live server for dev as well
+      webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/find-me'
     })
   }
 }

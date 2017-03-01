@@ -19,7 +19,6 @@ var validateLat = (lat) => {
 }
 
 var validateLon = (lon) => {
-  var err = []
   if (!lon) return {err: '"lon" is required'}
   var lonFloat = parseFloat(lon)
   if (Number.isNaN(lonFloat) || lonFloat > 180 || lonFloat < -180) {
@@ -29,7 +28,6 @@ var validateLon = (lon) => {
 }
 
 var validateZoom = (zoom) => {
-  var err = []
   if (!zoom) { zoom = 15 }
   var zoomFloat = parseFloat(zoom)
   if (Number.isNaN(zoomFloat) || zoomFloat < 0) {
@@ -65,15 +63,16 @@ module.exports = (context, cb) => {
     transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
+        // Maybe a pipe dream, but in future we can send the email from the client's address?
         // type: 'OAuth2',
-        user: 'tjaart@tjaart.co.za',
-        pass: 'yzumgrvzebpcqwak'
         // accessToken: ''
+        user: context.secrets.username,
+        pass: context.secrets.password
       }
     })
 
     var mailOptions = {
-      from: 'tjaart@tjaart.co.za',
+      from: 'context.secrets.username',
       to: to,
       subject: subject,
       text: `${message}

@@ -11,7 +11,8 @@ module.exports = {
 
   },
   plugins: [new HtmlWebpackPlugin({
-    title: 'Email my location'
+    title: 'Find Me',
+    template: 'templates/index.ejs'
   })],
   module: {
     rules: [
@@ -52,7 +53,13 @@ module.exports = {
         }, {
           loader: 'sass-loader', // compiles Sass to CSS
           options: {sourceMap: true}
-        }]
+        }],
+        exclude: /flexboxgrid/
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader?modules',
+        include: /flexboxgrid/
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,

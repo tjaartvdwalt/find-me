@@ -2,13 +2,13 @@
 
 Its the day after Christmas, and foolishly, you decide to take the family to Disney World. Your party splits up, and at lunch time, you find the last available seat in a packed dining area. You call your wife, and try to explain where you are: "No honey, you have to turn right at the Magic Castle..." 
 
-Wouldn't it be easier if you could send her a map with a pin to your current location?  Somewhat surprisingly Google Maps does not provide an easy interface to do this. 
+Wouldn't it be easier if you could send your location to the Google Maps app on her phone?  Somewhat surprisingly Google Maps does not provide an easy interface to do this. 
 
-With this app you can send an email with a Google Maps link to your location. She can conveniently open it in the Maps application on her phone, and find you within minutes.
+With this app you can send an email with a Google Maps link to your location. When she clicks on the link, it opens in Google Maps, and she can find you!
 
 ## Demo ##
 
-You can try the app [here](https://tjaart.gitlab.io/find-me)
+Try the app [here](https://tjaart.gitlab.io/find-me)
 
 # Installation #
 
@@ -39,17 +39,19 @@ Install and initialize the Webtask CLI
 
 To create the webtaks
 
-`wt-cli create --watch -s GMAIL_USERNAME=MY_GMAIL_USER -s GMAIL_PASSWORD=MY_GMAIL_USER ./webtask/src/find-me.js`
+`wt-cli create --watch -s GMAIL_USERNAME=MY_GMAIL_USER -s GMAIL_PASSWORD=MY_GMAIL_USER -s AUTH0_CLIENT_SECRET=MY_SECRET ./webtask/src/find-me.js`
 
 The `--watch` switch reloads the webtask on file change.
 
 # The API #
 
-To send the email link we perform a GET request on our webtask endpoint, with the following parameters: 
+To send the email link we perform a GET request on our webtask endpoint.
+
+The request should have a `Bearer` token, obtained from Auth0. 
 
 | Parameter | Values                          | Default       |
 | ----------|:--------------------------------|---------------|
-| to        | comma separated email addresses | *Required*    |
+| mail      | comma separated email addresses | *Required*    |
 | lat       | -90 <= lat <= 90                | *Required*    |
 | lon       | -180<=  lat <= 180              | *Required*    |
 | zoom      | zoom > 0                        | `15`          |

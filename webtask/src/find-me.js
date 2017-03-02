@@ -41,7 +41,6 @@ var validateZoom = (zoom) => {
 }
 
 const validate = function (params) {
-  var err = []
   if (validateEmail(params.email)) { return validateEmail(params.email) }
   if (validateLat(params.lat)) { return validateLat(params.lat) }
   if (validateLat(params.lat)) { return validateLat(params.lat) }
@@ -58,13 +57,6 @@ var getToken = (authorizationHeader) => {
   }
 }
 
-// var checkAuth = (token) => {
-//   return jwt.verify(token, context.secrets.AUTH0_CLIENT_SECRET)
-// }
-
-// module.exports = (context, cb) => {
-//   var err = []
-// else {
 const sendMail = function (options, cb) {
   var params = options.params
   var secrets = options.secrets
@@ -109,18 +101,26 @@ const parseParams = function (params) {
 }
 
 server.get('/', function (req, res) {
-  var token = getToken(req.headers.authorization)
   var secrets = req.webtaskContext.secrets
-  var params = parseParams(req.webtaskContext.query)
-  var errorMsg = validate(params)
-  if (errorMsg) {
-    res.status(400).json({message: errorMsg})
-  } else {
-    sendMail({params, secrets}, (err, response) => {
-      if (err) { res.status(400).json({message: err}) }
-      res.json(response)
-    })
-  }
+  console.log(req.headers.authorization)
+  var token = getToken(req.headers.authorization)
+  console.log(token)
+  jwt.verify(token, secrets.AUTH0_CLIENT_SECRET, (err, decode) => {
+    if (err) {
+      res.status(400).json({message: err.message})
+    } else {
+      var params = parseParams(req.webtaskContext.query)
+      var errorMsg = validate(params)
+      if (errorMsg) {
+        res.status(400).json({message: errorMsg})
+      } else {
+        sendMail({params, secrets}, (err, response) => {
+          if (err) { res.status(400).json({message: err}) }
+          res.json(response)
+        })
+      }
+    }
+  })
 })
 
 module.exports = Webtask.fromExpress(server)

@@ -8,7 +8,11 @@ const AuthService = class {
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
         redirectUrl: Config.callbackUrl,
-        responseType: 'token'
+        responseType: 'token',
+        params: {
+          access_type: 'offline',
+          scope: 'openid'
+        }
       }
     })
     // Add callback for lock `authenticated` event
@@ -22,7 +26,7 @@ const AuthService = class {
     // Saves the user token
     this.setToken(authResult.idToken)
     // navigate to the home route
-    browserHistory.replace('/')
+    // browserHistory.replace('/')
   }
 
   login () {

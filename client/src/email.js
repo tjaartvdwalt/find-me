@@ -1,3 +1,4 @@
+import auth from './auth'
 import Config from 'Config'
 import AppBar from 'material-ui/AppBar'
 import Toggle from 'material-ui/Toggle'
@@ -36,9 +37,15 @@ export default class extends React.Component {
 
   submit (e) {
     var url = `${Config.webtaskUrl}?email=${this.state.email}&lat=${this.state.lat}&lon=${this.state.lon}&message=${this.state.message}`
-    xhr.get({url, json: true}, (err, res) => {
+    xhr.get(
+      {
+        url,
+        json: true,
+        headers: {'Authorization': `Bearer ${auth.getToken()}`}
+      }, (err, res) => {
       if (err) {
         // there was an error making the request
+        console.log(err)
         this.setState({snackbar: {active: true, message: 'No internet connection!'}})
       } else {
         var message

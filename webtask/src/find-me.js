@@ -105,22 +105,23 @@ server.get('/', function (req, res) {
   console.log(req.headers.authorization)
   var token = getToken(req.headers.authorization)
   console.log(token)
-  jwt.verify(token, secrets.AUTH0_CLIENT_SECRET, (err, decode) => {
-    if (err) {
-      res.status(400).json({message: err.message})
-    } else {
-      var params = parseParams(req.webtaskContext.query)
-      var errorMsg = validate(params)
-      if (errorMsg) {
-        res.status(400).json({message: errorMsg})
+  jwt.verify(token, secrets.AUTH0_CLIENT_SECRET, {ignoreExpiration: true},
+    (err, decode) => {
+      if (err) {
+        res.status(400).json({message: err.message})
       } else {
-        sendMail({params, secrets}, (err, response) => {
-          if (err) { res.status(400).json({message: err}) }
-          res.json(response)
-        })
+        var params = parseParams(req.webtaskContext.query)
+        var errorMsg = validate(params)
+        if (errorMsg) {
+          res.status(400).json({message: errorMsg})
+        } else {
+          sendMail({params, secrets}, (err, response) => {
+            if (err) { res.status(400).json({message: err}) }
+            res.json(response)
+          })
+        }
       }
-    }
-  })
+    })
 })
 
 module.exports = Webtask.fromExpress(server)

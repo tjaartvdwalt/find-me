@@ -1,6 +1,5 @@
 import Auth0Lock from 'auth0-lock'
 import Config from 'Config'
-import { browserHistory } from 'react-router'
 
 const AuthService = class {
   constructor (clientId, domain) {

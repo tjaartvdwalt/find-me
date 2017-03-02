@@ -54,13 +54,16 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "auth0-lock": "^10.11.0",
+    "immutable": "^3.8.1",
     "material-ui": "^0.17.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
     "react-router": "^4.0.0-beta.6",
     "react-router-dom": "^4.0.0-beta.6",
     "react-tap-event-plugin": "^2.0.1",
     "react-toastr": "^2.8.2",
+    "redux": "^3.6.0",
     "toastr": "^2.1.2",
     "xhr": "^2.4.0"
   }

@@ -1,21 +1,31 @@
 import Config from 'Config'
 import AppBar from 'material-ui/AppBar'
+import Immutable from 'immutable'
 import Toggle from 'material-ui/Toggle'
 import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
 import TextField from 'material-ui/TextField'
 
 import React from 'react'
+
 import xhr from 'xhr'
 
 import 'animate.css/animate.css'
 import 'toastr/toastr.scss'
 import './email.scss'
 
-export default class extends React.Component {
+export default class extends React.PureComponent {
   constructor (props) {
     super(props)
-    this.state = {lat: 0, lon: 0, customLocation: false, email: '', subject: 'my locations', message: '', snackbar: {active: false, message: '', type: ''}}
+    this.state = Immutable.fromJS({
+      lat: {val: 0},
+      lon: {val: 0},
+      customLocation: {val: false},
+      email: {val: ''},
+      subject: {val: 'my locations'},
+      message: {val: ''},
+      snackbar: {active: false, message: '', type: ''}
+    })
 
     this.handleChange = this.handleChange.bind(this)
     this.submit = this.submit.bind(this)
@@ -24,80 +34,77 @@ export default class extends React.Component {
   componentWillMount () {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude
-        })
+        this.state = this.state.setIn(['lat', 'val'], position.coords.latitude)
+        this.state = this.state.setIn(['lon', 'val'], position.coords.longitude)
+        // Not good code! We should fix this
+        console.log(this)
       }, (err) => {
         console.error(err)
       })
     }
   }
 
-  sendToast (options) {
-    switch (options.type) {
-      case 'success':
-        this.refs.container.success(options.message, options.title)
-        break
-      case 'error':
-        this.refs.container.error(options.message, options.title)
-        break
-      case 'warning':
-        this.refs.container.success(options.message, options.title)
-        break
-      case 'info':
-        this.refs.container.success(options.message, options.title)
-        break
-      default:
-        break
+  clientValidation () {
+    var valid = true
+    if (this.state.getIn(['email', 'val']) === '') {
+      this.state = this.state.setIn(['email', 'error'], 'Email is required')
+      valid = false
     }
+    if (this.state.getIn(['lat', 'val']) < -90 || this.state.getIn('lat', 'val') > 90) {
+      this.state = this.state.setIn(['email', 'error'], 'Latitude should be between -90 and 90')
+    }
+    return valid
   }
 
   submit (e) {
-    var url = `${Config.webtaskUrl}?to=${this.state.email}&lat=${this.state.lat}&lon=${this.state.lon}&message=${this.state.message}`
-    xhr.get(url, (err, resp) => {
-      if (err) {
-        this.setState(Object.assign({}, this.state, {snackbar: {active: true, type: 'error', message: err}}))
-        // this.sendToast({type: 'error', title: 'Failed to send mail', })
-        console.error(err)
-      } else {
-        if (resp.statusCode >= 400) {
-          this.setState(Object.assign({}, this.state, {snackbar: {active: true, type: 'error', message: JSON.parse(resp.rawRequest.response).details}}))
-          // this.sendToast({type: 'error', title: 'Delivery failure', })
+    if (this.clientValidation()) {
+      var url = `${Config.webtaskUrl}?to=${this.state.getIn(['email', 'val'])}&lat=${this.state.getIn(['lat', 'val'])}&lon=${this.state.getIn(['lon', 'val'])}&message=${this.state.getIn(['message', 'val'])}`
+      xhr.get(url, (err, resp) => {
+        if (err) {
+          this.state = this.state.setIn(['snackbar', 'active'], true)
+          this.state = this.state.setIn(['snackbar', 'type'], 'error')
+          this.state = this.state.setIn(['snackbar', 'message'], err)
         } else {
-          this.setState(Object.assign({}, this.state, {snackbar: {active: true, type: 'success', message: 'Your email was successfully delivered'}}))
-          // this.sendToast({type: 'success', title: 'Email sent', })
+          if (resp.statusCode >= 400) {
+            this.state = this.state.setIn(['snackbar', 'active'], true)
+            this.state = this.state.setIn(['snackbar', 'type'], 'error')
+            this.state = this.state.setIn(['snackbar', 'message'], JSON.parse(resp.rawRequest.response).details)
+          } else {
+            this.state = this.state.setIn(['snackbar', 'active'], true)
+            this.state = this.state.setIn(['snackbar', 'type'], 'error')
+            this.state = this.state.setIn(['snackbar', 'message'], 'Your email was successfully delivered')
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   handleChange (e) {
-    var newState
+    console.log(this)
     switch (e.target.id) {
       case 'lat':
-        newState = Object.assign({}, this.state, {lat: e.target.value})
+        this.state = this.state.setIn(['lat', 'val'], e.target.value)
         break
       case 'lon':
-        newState = Object.assign({}, this.state, {lon: e.target.value})
+        this.state = this.state.setIn(['lon', 'val'], e.target.value)
         break
       case 'subject':
-        newState = Object.assign({}, this.state, {subject: e.target.value})
+        this.state = this.state.setIn(['subject', 'val'], e.target.value)
         break
       case 'message':
-        newState = Object.assign({}, this.state, {message: e.target.value})
+        this.state = this.state.setIn(['message', 'val'], e.target.value)
         break
       case 'email':
-        newState = Object.assign({}, this.state, {email: e.target.value})
+        this.state = this.state.setIn(['email', 'val'], e.target.value)
+        console.log(this.state.getIn(['email', 'val']))
         break
       case 'customLocation':
-        newState = Object.assign({}, this.state, {customLocation: !this.state.customLocation})
+        this.state = this.state.setIn(['customLocation', 'val'], e.target.value)
         break
       default:
       // leave state unchanged!
         break
     }
-    this.setState(newState)
   }
 
   showMenu () {
@@ -115,25 +122,26 @@ export default class extends React.Component {
         <TextField
       id="email"
       floatingLabelText="Email Addresses"
+      errorText={this.state.getIn(['email', 'error'])}
       onChange={this.handleChange}
-      value={this.state.email}
+      defaultValue={this.state.getIn(['email', 'val'])}
         />
         </div>
         <div>
         <TextField
       id="lat"
       floatingLabelText="Latitude"
-      disabled={!this.state.customLocation}
-      value={this.state.lat}
+      disabled={!this.state.getIn(['customLocation', 'val'])}
+      defaultValue={this.state.getIn(['lat', 'val'])}
         />
         </div>
         <div>
         <TextField
       id="lon"
       floatingLabelText="Longitude"
-      disabled={!this.state.customLocation}
+      disabled={!this.state.getIn(['customLocation', 'val'])}
       onChange={this.handleChange}
-      value={this.state.lon}
+      defaultValue={this.state.getIn(['lon', 'val'])}
         />
         </div>
         <div>
@@ -141,7 +149,7 @@ export default class extends React.Component {
       id="subject"
       floatingLabelText="Subject"
       onChange={this.handleChange}
-      value={this.state.subject}
+      defaultValue={this.state.getIn(['subject', 'val'])}
         />
         </div>
         <div>
@@ -152,7 +160,7 @@ export default class extends React.Component {
       floatingLabelText="Message"
       multiLine={true}
       rows={3}
-      value={this.state.message}
+      defaultValue={this.state.getIn(['message', 'val'])}
         />
         </div>
         <div>
@@ -169,9 +177,9 @@ export default class extends React.Component {
         />
         </div>
         <Snackbar
-      className={this.state.snackbar.type}
-      open={this.state.snackbar.active}
-      message={this.state.snackbar.message}
+      className={this.state.getIn(['snackbar', 'type'])}
+      open={this.state.getIn(['snackbar', 'active'])}
+      message={this.state.getIn(['snackbar', 'message'])}
       autoHideDuration={4000}
         />
         </div>

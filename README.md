@@ -35,11 +35,11 @@ Install and initialize the Webtask CLI
 
 `npm install wt-cli -g`
 
-`wt init my@email.address`
+`wt-cli init my@email.address`
 
 To create the webtaks
 
-`wt-cli create --watch webtask/src/find-me.js`
+`wt-cli create --watch -s GMAIL_USERNAME=MY_GMAIL_USER -s GMAIL_PASSWORD=MY_GMAIL_USER ./webtask/src/find-me.js`
 
 The `--watch` switch reloads the webtask on file change.
 

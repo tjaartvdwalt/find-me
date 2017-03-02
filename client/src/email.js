@@ -15,7 +15,7 @@ import './email.scss'
 export default class extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {lat: 0, lon: 0, customLocation: false, email: '', subject: 'my locations', message: '', snackbar: {active: false, message: '', type: ''}}
+    this.state = {lat: 0, lon: 0, customLocation: false, email: '', subject: 'my locations', message: '', snackbar: {active: false, message: ''}}
 
     this.handleChange = this.handleChange.bind(this)
     this.submit = this.submit.bind(this)
@@ -34,74 +34,49 @@ export default class extends React.Component {
     }
   }
 
-  sendToast (options) {
-    switch (options.type) {
-      case 'success':
-        this.refs.container.success(options.message, options.title)
-        break
-      case 'error':
-        this.refs.container.error(options.message, options.title)
-        break
-      case 'warning':
-        this.refs.container.success(options.message, options.title)
-        break
-      case 'info':
-        this.refs.container.success(options.message, options.title)
-        break
-      default:
-        break
-    }
-  }
-
   submit (e) {
-    var url = `${Config.webtaskUrl}?to=${this.state.email}&lat=${this.state.lat}&lon=${this.state.lon}&message=${this.state.message}`
-    xhr.get(url, (err, resp) => {
+    var url = `${Config.webtaskUrl}?email=${this.state.email}&lat=${this.state.lat}&lon=${this.state.lon}&message=${this.state.message}`
+    xhr.get({url, json: true}, (err, res) => {
       if (err) {
-        this.setState(Object.assign({}, this.state, {snackbar: {active: true, type: 'error', message: err}}))
-        // this.sendToast({type: 'error', title: 'Failed to send mail', })
-        console.error(err)
+        // there was an error making the request
+        this.setState({snackbar: {active: true, message: 'No internet connection!'}})
       } else {
-        if (resp.statusCode >= 400) {
-          this.setState(Object.assign({}, this.state, {snackbar: {active: true, type: 'error', message: JSON.parse(resp.rawRequest.response).details}}))
-          // this.sendToast({type: 'error', title: 'Delivery failure', })
+        var message
+        if (res.statusCode === 200) {
+          message = 'Your email was successfully delivered'
         } else {
-          this.setState(Object.assign({}, this.state, {snackbar: {active: true, type: 'success', message: 'Your email was successfully delivered'}}))
-          // this.sendToast({type: 'success', title: 'Email sent', })
+          res.body.message ? message = res.body.message : message = 'An unknown error occured.'
         }
+
+        this.setState({snackbar: {active: true, message: message}})
       }
     })
   }
 
   handleChange (e) {
-    var newState
     switch (e.target.id) {
       case 'lat':
-        newState = Object.assign({}, this.state, {lat: e.target.value})
+        this.setState({lat: e.target.value})
         break
       case 'lon':
-        newState = Object.assign({}, this.state, {lon: e.target.value})
+        this.setState({lon: e.target.value})
         break
       case 'subject':
-        newState = Object.assign({}, this.state, {subject: e.target.value})
+        this.setState({subject: e.target.value})
         break
       case 'message':
-        newState = Object.assign({}, this.state, {message: e.target.value})
+        this.setState({message: e.target.value})
         break
       case 'email':
-        newState = Object.assign({}, this.state, {email: e.target.value})
+        this.setState({email: e.target.value})
         break
       case 'customLocation':
-        newState = Object.assign({}, this.state, {customLocation: !this.state.customLocation})
+        this.setState({customLocation: !this.state.customLocation})
         break
       default:
       // leave state unchanged!
         break
     }
-    this.setState(newState)
-  }
-
-  showMenu () {
-    console.log('should implement')
   }
 
   render () {
@@ -124,6 +99,7 @@ export default class extends React.Component {
       id="lat"
       floatingLabelText="Latitude"
       disabled={!this.state.customLocation}
+      onChange={this.handleChange}
       value={this.state.lat}
         />
         </div>
@@ -169,7 +145,6 @@ export default class extends React.Component {
         />
         </div>
         <Snackbar
-      className={this.state.snackbar.type}
       open={this.state.snackbar.active}
       message={this.state.snackbar.message}
       autoHideDuration={4000}

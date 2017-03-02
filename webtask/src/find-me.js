@@ -1,90 +1,126 @@
 const nodemailer = require('nodemailer')
+const Webtask = require('webtask-tools')
+const Express = require('express')
+const server = Express()
+const BodyParser = require('body-parser')
 
-var validateTo = (to) => {
-  if (!to) {
-    return {err: '"to" is required'}
+const jwt = require('jsonwebtoken')
+
+server.use(BodyParser.json())
+
+var validateEmail = (email) => {
+  if (!email) {
+    return 'email is required'
   }
-  return {to}
 }
 
 var validateLat = (lat) => {
   if (!lat) {
-    return {err: '"lat" is required'}
+    return 'lat is required'
   }
   var latFloat = parseFloat(lat)
   if (Number.isNaN(latFloat) || latFloat > 90 || latFloat < -90) {
-    return {err: '"lat" needs to be between -90 and 90'}
+    return 'lat needs to be between -90 and 90'
   }
-  return {lat}
 }
 
 var validateLon = (lon) => {
-  if (!lon) return {err: '"lon" is required'}
+  if (!lon) return 'lon is required'
   var lonFloat = parseFloat(lon)
   if (Number.isNaN(lonFloat) || lonFloat > 180 || lonFloat < -180) {
-    return {err: '"lon" needs to be between -180 and 180'}
+    return 'lon needs to be between -180 and 180'
   }
-  return {lon}
 }
 
 var validateZoom = (zoom) => {
   if (!zoom) { zoom = 15 }
   var zoomFloat = parseFloat(zoom)
   if (Number.isNaN(zoomFloat) || zoomFloat < 0) {
-    return {err: '"zoom" needs to be a positive number'}
+    return 'zoom needs to be a positive number'
   }
-  return {zoom}
 }
 
-module.exports = (context, cb) => {
+const validate = function (params) {
   var err = []
-  var to, lat, lon, zoom, subject, message, test
+  if (validateEmail(params.email)) { return validateEmail(params.email) }
+  if (validateLat(params.lat)) { return validateLat(params.lat) }
+  if (validateLat(params.lat)) { return validateLat(params.lat) }
+  if (validateLon(params.lon)) { return validateLon(params.lon) }
+  if (validateZoom(params.zoom)) { return validateZoom(params.zoom) }
+}
 
-  var toObj = validateTo(context.query.to)
-  !toObj.err ? to = toObj.to : err.push(toObj.err)
+var getToken = (authorizationHeader) => {
+  var myRe = /Bearer (.*)/g
+  var myArray = myRe.exec(authorizationHeader)
+  console.log(myArray)
+  if (myArray !== null && myArray.length > 1) {
+    return myArray[1]
+  }
+}
 
-  var latObj = validateLat(context.query.lat)
-  !latObj.err ? lat = latObj.lat : err.push(latObj.err)
+// var checkAuth = (token) => {
+//   return jwt.verify(token, context.secrets.AUTH0_CLIENT_SECRET)
+// }
 
-  var lonObj = validateLon(context.query.lon)
-  !lonObj.err ? lon = lonObj.lon : err.push(lonObj.err)
-
-  var zoomObj = validateZoom(context.query.zoom)
-  !zoomObj.err ? zoom = zoomObj.zoom : err.push(zoomObj.err)
-
-  context.query.subject ? subject = context.query.subject : subject = 'my location'
-  context.query.message ? message = context.query.message : message = ''
-  context.query.test ? test = true : test = false
-
-  if (err.length > 0) {
-    cb(err.join(', '), null)
-  } else {
-    var transporter
-    transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
+// module.exports = (context, cb) => {
+//   var err = []
+// else {
+const sendMail = function (options, cb) {
+  var params = options.params
+  var secrets = options.secrets
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
         // Maybe a pipe dream, but in future we can send the email from the client's address?
         // type: 'OAuth2',
         // accessToken: ''
-        user: context.secrets.username,
-        pass: context.secrets.password
-      }
-    })
+      user: secrets.GMAIL_USERNAME,
+      pass: secrets.GMAIL_PASSWORD
+    }
+  })
+  console.log(params)
+  console.log(secrets)
 
-    var mailOptions = {
-      from: 'context.secrets.username',
-      to: to,
-      subject: subject,
-      text: `${message}
-https://www.google.com/maps/place/${lat},${lon}/@${lat},${lon},${zoom}z`
-    }
-    if (test) {
-      cb(null, mailOptions)
-    } else {
-      transporter.sendMail(mailOptions, (error, info) => {
-        cb(error, info)
-      })
-    }
+  var mailOptions = {
+    from: `${secrets.GMAIL_USERNAME}`,
+    to: params.email,
+    subject: params.subject,
+    text: `${params.message}
+https://www.google.com/maps/place/${params.lat},${params.lon}/@${params.lat},${params.lon},${params.zoom}z`
+  }
+  if (params.test) {
+    cb(null, mailOptions)
+  } else {
+    transporter.sendMail(mailOptions, (error, info) => {
+      console.log(error)
+      cb(error, info)
+    })
   }
 }
 
+const parseParams = function (params) {
+  // lets follow good practice and make this a pure function
+  var retParams = Object.assign({}, params)
+  if (!retParams.subject) { retParams.subject = 'my location' }
+  if (!retParams.message) { retParams.message = '' }
+  if (!retParams.zoom) { retParams.zoom = 15 }
+
+  return retParams
+}
+
+server.get('/', function (req, res) {
+  var token = getToken(req.headers.authorization)
+  var secrets = req.webtaskContext.secrets
+  var params = parseParams(req.webtaskContext.query)
+  var errorMsg = validate(params)
+  if (errorMsg) {
+    res.status(400).json({message: errorMsg})
+  } else {
+    sendMail({params, secrets}, (err, response) => {
+      if (err) { res.status(400).json({message: err}) }
+      res.json(response)
+    })
+  }
+})
+
+module.exports = Webtask.fromExpress(server)

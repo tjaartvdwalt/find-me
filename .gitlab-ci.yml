@@ -48,6 +48,6 @@ webtask:
     - master
 
   script:
-    - "echo '{\"default\": {\"url\": \"https://webtask.it.auth0.com\", \"token\": \"${TOKEN}\", \"container\": \"${CONTAINER}\"}}' > ~/.webtask"
+    - 'echo \{"default": \{"url": "https://webtask.it.auth0.com", "token": "${TOKEN}", "container": "${CONTAINER}"\}\} > ~/.webtask'
     - npm install -g wt-cli
     - wt-cli create webtask/src/find-me.js 

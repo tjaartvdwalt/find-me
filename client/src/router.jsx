@@ -1,8 +1,8 @@
 import React from 'react'
 import { HashRouter as Router, Route, Redirect } from 'react-router-dom'
 import auth from './auth'
-import Email from './email'
-import Login from './login'
+import Email from './email.jsx'
+import Login from './login.jsx'
 
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {

@@ -4,16 +4,17 @@ module.exports = {
 
   context: path.join(__dirname, '/client/src'),
   devtool: 'source-map',
-  entry: './index.js',
+  entry: './index.jsx',
   output: {
     path: path.join(__dirname, '/client/dist'),
     filename: 'bundle.js'
-
   },
+
   plugins: [new HtmlWebpackPlugin({
     title: 'Find Me',
     template: 'templates/index.ejs'
   })],
+
   module: {
     rules: [
       {

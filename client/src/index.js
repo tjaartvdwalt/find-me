@@ -1,6 +1,6 @@
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import React from 'react'
-import Router from './router.jsx'
+import Router from './router'
 import ReactDOM from 'react-dom'
 
 import './index.scss'

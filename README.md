@@ -8,7 +8,7 @@ With this app you can send an email with a Google Maps link to your location. Wh
 
 ## Demo ##
 
-Try the app [here](https://tjaart.gitlab.io/find-me)
+Try the app [here](https://tjaart.gitlab.io/findme)
 
 # Installation #
 

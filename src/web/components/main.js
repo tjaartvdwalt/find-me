@@ -8,11 +8,15 @@ import belle from 'belle'
 const Button = belle.Button
 const TextInput = belle.TextInput
 
+import {ToastContainer, ToastMessage} from 'react-toastr'
+const ToastMessageFactory = React.createFactory(ToastMessage.animation)
+
 import auth from './auth'
 import GoogleMap from './map'
-
 import xhr from 'xhr'
 
+import 'animate.css'
+import 'toastr/toastr.scss'
 import './main.scss'
 
 const MainComponent = class extends React.Component {
@@ -33,41 +37,40 @@ const MainComponent = class extends React.Component {
       if (err) {
           // there was an error making the request
         console.log(err)
-        this.props.setToast({type: 'critical', message: 'Error making an internet request'})
+        this.refs.container.error(`Error making an internet request`, `Failure`, {
+          closeButton: true
+        })
       } else {
         if (res.statusCode === 200) {
-          this.props.setToast({type: 'ok', message: 'Your email was successfully delivered'})
+          this.refs.container.success(`Your email has been successfully sent`, `Success`, {
+            closeButton: true
+          })
         } else {
-          this.props.setToast({type: 'critical', message: 'An unknown error occured'})
+          this.refs.container.error(`Could not send your email`, `Failure`, {
+            closeButton: true
+          })
         }
       }
     })
   }
 
   render () {
-    // let toast
-    // if (this.props.toast) {
-    //   console.log('show toast')
-    //   toast = <Toast
-    //   status={this.props.toast.type}
-    //   onClose={() => { this.props.clearToast() }}
-    //     >
-    //     {this.props.toast.message}
-    //   </Toast>
-    // }
-
     return (
-      <div className="container">
-        <div className="header">
-          <h1>Find Me</h1>
-          <div>
+        <div className="container">
+          <ToastContainer
+            toastMessageFactory={ToastMessageFactory}
+            ref="container"
+            className="toast-top-right"
+            >
+          </ToastContainer>
+          <div className="header">
+            <h1>Find Me</h1>
             <TextInput
               id="email"
               placeholder="Email address"
               onChange={e => { this.props.setEmail(e.target.value) }}
-              />
-          </div>
-          <div>
+              >
+            </TextInput>
             <TextInput
               id="message"
               placeholder="Customized message"
@@ -75,21 +78,25 @@ const MainComponent = class extends React.Component {
               value={this.props.message}
               />
           </div>
+          <div className="main">
+            <GoogleMap />
+          </div>
+          <div className="footer">
+            <Button
+              primary
+              style={{width: '100%'}}
+              onClick={e => { this.submit(e) }}
+              >
+              Send Email</Button>
+          </div>
         </div>
-        <div className="main">
-        <GoogleMap />
-        </div>
-        <div className="footer">
-          <Button primary style={{width: '100%'}}>Send Email</Button>
-        </div>
-      </div>
     )
   }
-}
+  }
 
 const Main = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainComponent)
+    mapStateToProps,
+    mapDispatchToProps
+  )(MainComponent)
 
 export default Main

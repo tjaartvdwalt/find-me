@@ -1,7 +1,7 @@
 // required by jest to transpile tests
 {
   presets: [
-    ["es2015", {modules: false}]
+    "react-native"
   ],
 
   env: {

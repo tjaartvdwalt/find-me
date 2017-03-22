@@ -1,11 +1,12 @@
 {
-  "name": "email-location",
+  "name": "findme",
   "version": "1.0.0",
   "description": "Email a Google Maps link of my current location using webtask",
   "main": "client/src/index.js",
   "scripts": {
     "lint": "eslint client/src",
     "bundle": "webpack -p",
+    "start-native": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "watch": "webpack-dev-server"
   },
@@ -32,6 +33,7 @@
     "babel-plugin-transform-react-jsx-source": "^6.22.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-latest": "^6.22.0",
+    "babel-preset-react-native": "^1.9.1",
     "babel-types": "^6.23.0",
     "css-loader": "^0.26.2",
     "eslint": "^3.16.1",
@@ -47,6 +49,7 @@
     "html-webpack-plugin": "^2.28.0",
     "jest": "^19.0.2",
     "node-sass": "^4.5.0",
+    "remote-redux-devtools": "^0.5.7",
     "sass-loader": "^6.0.2",
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1",
@@ -55,15 +58,19 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "auth0-lock": "^10.11.0",
-    "material-ui": "^0.17.0",
+    "belle": "^3.0.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-google-maps": "^6.0.1",
     "react-head": "^0.1.0",
-    "react-router": "^4.0.0-beta.6",
-    "react-router-dom": "^4.0.0-beta.6",
+    "react-native": "^0.42.3",
+    "react-native-lock": "^0.5.0",
+    "react-redux": "^5.0.3",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
     "react-tap-event-plugin": "^2.0.1",
     "react-toastr": "^2.8.2",
+    "redux": "^3.6.0",
     "toastr": "^2.1.2",
     "xhr": "^2.4.0"
   }

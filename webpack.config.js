@@ -2,11 +2,10 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
 
-  context: path.join(__dirname, '/client/src'),
   devtool: 'source-map',
-  entry: './index.js',
+  entry: './index.web.js',
   output: {
-    path: path.join(__dirname, '/client/dist'),
+    path: path.join(__dirname, '/dist'),
     filename: 'bundle.js'
   },
 
@@ -75,11 +74,15 @@ module.exports = {
   externals: {
     'Config': JSON.stringify(process.env.ENV === 'production' ? {
       callbackUrl: 'https://tjaart.gitlab.io/find-me',
-      webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/find-me'
+      webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/find-me',
+      clientId: 'mKPHl3hi9ws7CmMkbCEgB0Ss19MVyD5Z',
+      domain: 'tjaart.auth0.com'
     } : {
       callbackUrl: 'http://localhost:8080',
       // for now we use the live server for dev as well
-      webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/find-me'
+      webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/find-me',
+      clientId: 'mKPHl3hi9ws7CmMkbCEgB0Ss19MVyD5Z',
+      domain: 'tjaart.auth0.com'
     })
   }
 }

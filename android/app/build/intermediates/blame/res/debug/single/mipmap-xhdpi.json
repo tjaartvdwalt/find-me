@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/tjaart/react-native/findme/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher.png",
+        "source": "/home/tjaart/react-native/findme/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/tjaart/findme/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher.png",
+        "source": "/home/tjaart/findme/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/tjaart/find-me/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher.png",
+        "source": "/home/tjaart/find-me/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    }
+]

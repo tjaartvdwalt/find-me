@@ -39,7 +39,7 @@ Install and initialize the Webtask CLI
 
 To create the webtaks
 
-`wt-cli create --watch -s GMAIL_USERNAME=MY_GMAIL_USER -s GMAIL_PASSWORD=MY_GMAIL_PASS -s AUTH0_CLIENT_SECRET=MY_SECRET ./webtask/src/find-me.js`
+`wt-cli create --watch -s GMAIL_USERNAME=MY_GMAIL_USER -s GMAIL_PASSWORD=MY_GMAIL_PASS -s AUTH0_CLIENT_SECRET=MY_SECRET ./webtask/src/findme.js`
 
 The `--watch` switch reloads the webtask on file change.
 

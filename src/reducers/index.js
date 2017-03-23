@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import locations from './locations'
+import email from './email'
+import location from './location'
 
 const app = combineReducers({
-  locations
+  email,
+  location
 })
 
 export default app

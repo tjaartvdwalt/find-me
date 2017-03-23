@@ -68,7 +68,7 @@ const MainComponent = class extends React.Component {
             <TextInput
               id="email"
               placeholder="Email address"
-              onChange={e => { this.props.setEmail(e.target.value) }}
+              onChange={e => { this.props.setAddress(e.target.value) }}
               >
             </TextInput>
             <TextInput

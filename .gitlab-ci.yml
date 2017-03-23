@@ -15,7 +15,7 @@ build client:
     
   artifacts:
     paths:
-      - client/dist/
+      - dist/
       - node_modules/
   
 test:
@@ -28,14 +28,14 @@ test:
     
   artifacts:
     paths:
-      - client/dist/
+      - dist/
 
 pages:
   image: alpine:latest
   stage: deploy
   script:
   - mkdir public
-  - cp client/dist/* public
+  - cp dist/* public
   artifacts:
     paths:
     - public
@@ -50,4 +50,4 @@ webtask:
   script:
     - 'echo \{\"default\": \{\"url\": \"https://webtask.it.auth0.com\", \"token\": \"${TOKEN}\", \"container\": \"${CONTAINER}\"\}\} > ~/.webtask'
     - npm install -g wt-cli
-    - wt-cli create -s GMAIL_USERNAME=${GMAIL_USERNAME} -s GMAIL_PASSWORD=${GMAIL_PASSWORD} -s AUTH0_CLIENT_SECRET=${AUTH0_CLIENT_SECRET} ./webtask/src/find-me.js
+    - wt-cli create -s GMAIL_USERNAME=${GMAIL_USERNAME} -s GMAIL_PASSWORD=${GMAIL_PASSWORD} -s AUTH0_CLIENT_SECRET=${AUTH0_CLIENT_SECRET} ./webtask/src/findme.js

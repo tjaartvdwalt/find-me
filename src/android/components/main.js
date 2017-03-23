@@ -12,7 +12,7 @@ import { mapStateToProps, mapDispatchToProps } from '../../containers/main.js'
 const MainComponent = class extends React.Component {
   constructor (props) {
     super(props)
-    this.submit = this.submit.bind(this)
+    // this.submit = this.submit.bind(this)
   }
 
   // submit (e) {
@@ -50,9 +50,9 @@ const MainComponent = class extends React.Component {
   }
 }
 
-const Main = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainComponent)
+// const Main = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(MainComponent)
 
-export default Main
+export default MainComponent

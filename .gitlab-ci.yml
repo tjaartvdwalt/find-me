@@ -29,13 +29,18 @@ test:
   artifacts:
     paths:
       - dist/
+      - coverage/
 
 pages:
   image: alpine:latest
   stage: deploy
   script:
+  # copy the app
   - mkdir public
   - cp dist/* public
+  # copy the code coverage report
+  - cp coverage/ public/
+
   artifacts:
     paths:
     - public

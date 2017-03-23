@@ -7,7 +7,7 @@
     "lint": "eslint client/src",
     "bundle": "webpack -p",
     "start-native": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
+    "test": "jest --coverage",
     "watch": "webpack-dev-server"
   },
   "repository": {

@@ -1,3 +1,6 @@
+[![build status](https://gitlab.com/tjaart/findme/badges/master/build.svg)](https://gitlab.com/tjaart/findme/commits/master)
+[![coverage report](https://gitlab.com/tjaart/findme/badges/master/coverage.svg)](https://tjaart.gitlab.io/findme/coverage)
+
 # Find Me #
 
 Its the day after Christmas, and foolishly, you decide to take the family to Disney World. Your party splits up, and at lunch time, you find the last available seat in a packed dining area. You call your wife, and try to explain where you are: "No honey, you have to turn right at the Magic Castle..." 

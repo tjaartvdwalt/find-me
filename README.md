@@ -9,7 +9,7 @@ Wouldn't it be easier if you could send your location to the Google Maps app on 
 
 With this app you can send an email with a Google Maps link to your location. When she clicks on the link, it opens in Google Maps, and she can find you!
 
-[^1] **Note:** As of March 2017 Google Maps does provide [a similar feature](https://techcrunch.com/2017/03/22/google-maps-now-lets-you-share-your-location-with-friends-and-family-for-a-specific-period-of-time/), but the spirit of this feature is not the same as Find Me. Find Me is designed to share a "one time location" with someone. This does not necessarily have to be your physical location, as it is customizable. Google Maps allows the user to be tracked by another user for a period of time, which is subtly different.
+[^1]: As of March 2017 Google Maps does provide [a similar feature](https://techcrunch.com/2017/03/22/google-maps-now-lets-you-share-your-location-with-friends-and-family-for-a-specific-period-of-time/), but the spirit of this feature is not the same as Find Me. Find Me is designed to share a "one time location" with someone. This does not necessarily have to be your physical location, as it is customizable. Google Maps allows the user to be tracked by another user for a period of time, which is subtly different.
 
 
 ## Demo ##

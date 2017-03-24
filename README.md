@@ -18,7 +18,7 @@ Try the app [here](https://tjaart.gitlab.io/findme)
 
 # Installation #
 
-## Client ##
+## Web Client ##
 
 Firstly, install the external dependencies
 
@@ -37,17 +37,38 @@ The production files will be placed in the `client/dist` directory.
 
 ## Webtask ##
 
-Install and initialize the Webtask CLI
+### Use the Demo webtask ###
+
+By default, the app is linked the Demo Site Webtask. This uses a free tier account, and is limited to 1 request per second. You are welcome to use it for testing, but if you are going to create heavy traffic, please create your own task to keep the Demo responsive for other users. (The same also applies for the Auth0 configuration, please use your own configuration in production.)
+
+### Create your own webtask ###
+
+#### Install and initialize the Webtask CLI ####
 
 `npm install wt-cli -g`
 
 `wt-cli init my@email.address`
 
-To create the webtaks
+#### Create the webtaks ####
 
 `wt-cli create --watch -s GMAIL_USERNAME=MY_GMAIL_USER -s GMAIL_PASSWORD=MY_GMAIL_PASS -s AUTH0_CLIENT_SECRET=MY_SECRET ./webtask/src/findme.js`
 
-The `--watch` switch reloads the webtask on file change.
+The `--watch` switch is optional, and reloads the webtask on file change.
+
+#### Update webpack.config.js ####
+
+When you have run `wt-cli create`, it responds with your endpoint URL. You have to set this URL in `externals.Config.webtaskUrl` in `webpack.config.js`: 
+
+```javascript
+'Config': JSON.stringify(process.env.ENV === 'production' ? {
+   ...
+   webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/findme'
+   ...
+}
+```
+
+(remember set it for the else part of the config section as well!)
+
 
 # The API #
 

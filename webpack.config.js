@@ -72,7 +72,7 @@ module.exports = {
   },
 
   externals: {
-    'Config': JSON.stringify(process.env.ENV === 'production' ? {
+    Config: JSON.stringify(process.env.ENV === 'production' ? {
       callbackUrl: 'https://tjaart.gitlab.io/findme',
       webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/findme',
       clientId: 'mKPHl3hi9ws7CmMkbCEgB0Ss19MVyD5Z',

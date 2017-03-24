@@ -10,6 +10,7 @@ module.exports = {
   },
 
   plugins: [new HtmlWebpackPlugin({
+    gmapsKey: 'AIzaSyDjjRwz7_I_F3drs0nm-bn4bZXYSjBrufs',
     title: 'Find Me',
     template: 'templates/index.ejs'
   })],

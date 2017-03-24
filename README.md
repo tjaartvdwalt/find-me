@@ -39,7 +39,7 @@ The production files will be placed in the `client/dist` directory.
 
 ### Use the Demo webtask ###
 
-By default, the app is linked the Demo Site Webtask. This uses a free tier account, and is limited to 1 request per second. You are welcome to use it for testing, but if you are going to create heavy traffic, please create your own task to keep the Demo responsive for other users. (The same also applies for the Auth0 configuration, please use your own configuration in production.)
+By default, the app is linked the Demo Site Webtask. This uses a free tier account, and is limited to 1 request per second. You are welcome to use it for testing, but if you are going to create heavy traffic, please create your own task to keep the Demo responsive for other users. (The same applies for the Auth0, and Google Maps configuration, please replace the default config with your own configuration in production.)
 
 ### Create your own webtask ###
 

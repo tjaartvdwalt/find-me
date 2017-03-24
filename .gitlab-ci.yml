@@ -25,11 +25,12 @@ test:
 
   script:
     - npm test
-    
+
+  coverage: /All files\s*\|\s*([\d\.]+)/
+
   artifacts:
     paths:
       - dist/
-      - coverage/
 
 pages:
   image: alpine:latest
@@ -38,8 +39,6 @@ pages:
   # copy the app
   - mkdir public
   - cp dist/* public
-  # copy the code coverage report
-  - cp -r coverage/ public/
 
   artifacts:
     paths:

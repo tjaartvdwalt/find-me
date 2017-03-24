@@ -1,6 +1,6 @@
 import React from 'react'
 // import Config from 'Config'
-import {View, TextInput} from 'react-native'
+import {View, Text, TextInput} from 'react-native'
 
 import { connect } from 'react-redux'
 import { mapStateToProps, mapDispatchToProps } from '../../containers/main.js'
@@ -40,12 +40,7 @@ const MainComponent = class extends React.Component {
 
   render () {
     return (
-      <View>
-        <TextInput
-          onChangeText={text => { this.props.setEmail(text) }}
-          value={this.state.text}
-          />
-      </View>
+        <Text>hello main!</Text>
     )
   }
 }

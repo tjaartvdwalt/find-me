@@ -1,5 +1,5 @@
 import React from 'react'
-import Router from './src/web/router'
+import Router from './src/router.web'
 import ReactDOM from 'react-dom'
 import reducer from './src/reducers'
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { HashRouter as Router, Route, Redirect } from 'react-router-dom'
-import auth from './components/auth'
-import Main from './components/main'
-import Login from './components/login'
+import auth from './components/web/auth'
+import Main from './components/web/main'
+import Login from './components/web/login'
 
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {

@@ -1,7 +1,7 @@
 import { setCenter, setMarker, setZoom } from '../actions'
 
 export const mapStateToProps = (state, ownProps) => {
-  return state.locations
+  return state.location
 }
 
 export const mapDispatchToProps = (dispatch, ownProps) => {

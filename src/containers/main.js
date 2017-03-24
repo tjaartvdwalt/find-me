@@ -2,7 +2,7 @@ import { setEmail, setSubject, setMessage,
          setToast, clearToast } from '../actions'
 
 export const mapStateToProps = (state, ownProps) => {
-  return state.locations
+  return state.email
 }
 
 export const mapDispatchToProps = (dispatch, ownProps) => {

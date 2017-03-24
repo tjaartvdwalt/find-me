@@ -2,7 +2,8 @@ import React from 'react'
 import Config from 'Config'
 
 import { connect } from 'react-redux'
-import { mapStateToProps, mapDispatchToProps } from '../../containers/main.js'
+import { mapStateToProps
+         , mapDispatchToProps } from '../../containers/main.js'
 
 import belle from 'belle'
 const Button = belle.Button

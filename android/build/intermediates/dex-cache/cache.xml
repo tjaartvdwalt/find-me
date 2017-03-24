@@ -30,6 +30,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/tjaart/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.1/55605135bd7b836612e0bba7037c9669f6ccf89f/jackson-annotations-2.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="55605135bd7b836612e0bba7037c9669f6ccf89f">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/jackson-annotations-2.4.1_fa65c4e550154975c135b75cc86a5f9dad0f8cba.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/tjaart/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.9.0/f824591a0016efbaeddb8300bee54832a1398cfa/okio-1.9.0.jar"
         jumboMode="false"
         optimize="true"
@@ -57,12 +66,39 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.0_7b8833e54917cd083125ee7843bcd29b6828aaea.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tjaart/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.5.0/4de2b4ed3445c37ec1720a7d214712e845a24636/okhttp-2.5.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/okhttp-2.5.0_dcecc323f9e951076abf9261dafdf0a4506bd6e4.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.4.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
         <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.4.0_4a52beb75afc626530d944e7c61c553e4f1a7bb0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tjaart/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.1/b130bcfb5a9c410c3cbd2e0adec9437e69a39e2c/jackson-core-2.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="b130bcfb5a9c410c3cbd2e0adec9437e69a39e2c">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/jackson-core-2.4.1_e72f27a90f240dd1d59e33f6d25fbc8249e9c5e3.jar" />
     </item>
     <item
         is-multidex="false"
@@ -147,6 +183,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/tjaart/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.1/f07c773f7b3a03c3801d405cadbdc93f7548e321/jackson-databind-2.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f07c773f7b3a03c3801d405cadbdc93f7548e321">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/jackson-databind-2.4.1_b262df047d4558ea0c46ce7cb25336bea31e18d2.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/tjaart/react-native/findme/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -180,6 +225,15 @@
         revision="23.0.1"
         sha1="3341b66c54367e777a0647e2db96c045329bfeab">
         <dex dex="/home/tjaart/react-native/findme/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-0.11.0_f082819a17540ed3560e385a0e8a3596a18f4c3a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/com.auth0.android/core/1.17.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c48406906eb60f9e8dc5a8c36ccf6e9ece3ed2bf">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/com.auth0.android-core-1.17.1_bd19eb87075dd43b8b18ff0792623a4efb04747e.jar" />
     </item>
     <item
         is-multidex="false"
@@ -246,6 +300,24 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/com.hannesdorfmann.smoothprogressbar/library/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="b0c4e77822421eb57e484df72ebb208b62df93e8">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/com.hannesdorfmann.smoothprogressbar-library-1.0.0_292c641140235c10183e1ec83eccb892e10ccb03.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/findme/react-native-lock/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="99f36cb571c3c9c51d9fee7581243ab699aede34">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/findme-react-native-lock-unspecified_e3f9658f0d2894eda6f6a384494f75c09740a9f5.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.42.3/jars/libs/infer-annotations-1.5.jar"
         jumboMode="false"
         optimize="true"
@@ -261,6 +333,15 @@
         revision="23.0.1"
         sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
         <dex dex="/home/tjaart/react-native/findme/android/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.4.0_3b9b905bb9be19f257d932271f6feddf6d7c60a7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tjaart/.gradle/caches/modules-2/files-2.1/com.squareup/otto/1.3.5/7941cd2c2c8ec006800d75c35f8a9dacf892ab93/otto-1.3.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="7941cd2c2c8ec006800d75c35f8a9dacf892ab93">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/otto-1.3.5_2e1215bba468437b7c9464dad56e870900f65bcd.jar" />
     </item>
     <item
         is-multidex="false"
@@ -282,21 +363,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.0.1_ef1cea82b780a0fa374f71fafaf17a344052f78c.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/home/tjaart/react-native/findme/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
         <dex dex="/home/tjaart/react-native/findme/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.0.1_bd0cd85dcbe403090243950b7985f77bc0cbbe40.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/com.auth0.android/lock/1.17.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2b3021d0c0a930de3055c15aab22a77d23aeb1b6">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/com.auth0.android-lock-1.17.1_05acd717a5d9440a2a972f9f7a484a22e214f7d1.jar" />
     </item>
     <item
         is-multidex="false"
@@ -318,6 +399,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/com.auth0.android/lock-passwordless/1.17.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a30bb4f8d1df3d73a4d923cf3e7d3a09e8bc4be1">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/com.auth0.android-lock-passwordless-1.17.1_baba7072f5d782544c7b4038a0f755f2b77d66ce.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/tjaart/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.4.1/63994437f62bc861bc20c605d12962f7246116d1/okhttp-urlconnection-3.4.1.jar"
         jumboMode="false"
         optimize="true"
@@ -333,6 +423,15 @@
         revision="23.0.1"
         sha1="c7c4f9e35c2fd5900da24f9872e3971801f08ce0">
         <dex dex="/home/tjaart/react-native/findme/android/app/build/intermediates/pre-dexed/debug/okhttp-3.4.1_8d0d1e2fcd454685ee03976e5862864e7fbd063a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tjaart/findme/android/app/build/intermediates/exploded-aar/com.auth0.android/identity-core/1.17.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="b2bb149f14be461fd112c02b4f0203e1dfbfa3f9">
+        <dex dex="/home/tjaart/findme/android/app/build/intermediates/pre-dexed/debug/com.auth0.android-identity-core-1.17.1_8b320958b3e3c16719869a1d8ebf9991dcf491a1.jar" />
     </item>
     <item
         is-multidex="false"

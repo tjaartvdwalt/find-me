@@ -61,14 +61,15 @@ When you have run `wt-cli create`, it responds with your endpoint URL. You have 
 
 ```javascript
 'Config': JSON.stringify(process.env.ENV === 'production' ? {
-   ...
-   webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/findme'
-   ...
+    ...
+    webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/findme'
+    ...
+  } : {
+    ...
+    webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/findme'
+    ...
 }
 ```
-
-(remember set it for the else part of the config section as well!)
-
 
 # The API #
 

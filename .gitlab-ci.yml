@@ -44,7 +44,6 @@ pages:
   - mkdir -p public/demo
   - cp dist/* public/demo
   # make the website
-  - cp -r images public/images
   - echo "<html>" > public/index.html
   - echo "  <head>" >> public/index.html
   - echo "    <link rel='stylesheet' type='text/css' href='https://tjaart.gitlab.io/cdn/gitlab-pages.css'>" >> public/index.html

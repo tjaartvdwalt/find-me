@@ -12,12 +12,12 @@ build client:
   script:
     - npm install
     - npm run bundle
-    
+
   artifacts:
     paths:
       - dist/
       - node_modules/
-  
+
 test:
   stage: test
   only:
@@ -34,11 +34,28 @@ test:
 
 pages:
   image: alpine:latest
+  before_script:
+    - apk update && apk add ruby ruby-irb ruby-rdoc
+    - gem install coderay kramdown
+
   stage: deploy
   script:
   # copy the app
-  - mkdir public
-  - cp dist/* public
+  - mkdir -p public/demo
+  - cp dist/* public/demo
+  # make the website
+  - cp -r images public/images
+  - echo "<html>" > public/index.html
+  - echo "  <head>" >> public/index.html
+  - echo "    <link rel='stylesheet' type='text/css' href='https://tjaart.gitlab.io/cdn/gitlab-pages.css'>" >> public/index.html
+  - echo "    <link rel='stylesheet' type='text/css' href='https://tjaart.gitlab.io/cdn/gitlab-fork-ribbon.css'>" >> public/index.html
+  - echo "  </head>" >> public/index.html
+  - echo "  <body>" >> public/index.html
+  - echo "    <a class='gitlab-fork-ribbon'' href='${CI_PROJECT_URL}' title='Fork me on GitLab'>Fork me on GitLab</a>"  >> public/index.html
+  - kramdown README.md >> public/index.html
+  - echo "  </body>"  >> public/index.html
+  - echo "</html>"  >> public/index.html
+
 
   artifacts:
     paths:

@@ -57,7 +57,7 @@ The `--watch` switch is optional, and reloads the webtask on file change.
 
 When you have run `wt-cli create`, it responds with your endpoint URL. You have to set this URL in `externals.Config.webtaskUrl` in `webpack.config.js`: 
 
-```javascript
+~~~ javascript
 'Config': JSON.stringify(process.env.ENV === 'production' ? {
     ...
     webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/findme'
@@ -67,7 +67,7 @@ When you have run `wt-cli create`, it responds with your endpoint URL. You have 
     webtaskUrl: 'https://wt-c7accb88c76dd1674c80cfeaa6e015c3-0.run.webtask.io/findme'
     ...
 }
-```
+~~~
 
 # The API #
 

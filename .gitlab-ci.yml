@@ -37,25 +37,15 @@ pages:
   before_script:
     - apk update && apk add ruby ruby-irb ruby-rdoc
     - gem install coderay kramdown
-
   stage: deploy
   script:
   # copy the app
   - mkdir -p public/demo
   - cp dist/* public/demo
   # make the website
-  - echo "<html>" > public/index.html
-  - echo "  <head>" >> public/index.html
-  - echo "    <link rel='stylesheet' type='text/css' href='https://tjaart.gitlab.io/cdn/gitlab-pages.css'>" >> public/index.html
-  - echo "    <link rel='stylesheet' type='text/css' href='https://tjaart.gitlab.io/cdn/gitlab-fork-ribbon.css'>" >> public/index.html
-  - echo "  </head>" >> public/index.html
-  - echo "  <body>" >> public/index.html
-  - echo "    <a class='gitlab-fork-ribbon'' href='${CI_PROJECT_URL}' title='Fork me on GitLab'>Fork me on GitLab</a>"  >> public/index.html
-  - kramdown README.md >> public/index.html
-  - echo "  </body>"  >> public/index.html
-  - echo "</html>"  >> public/index.html
-
-
+  - curl http://cdn.tjaart.org/gitlab/deploy_pages.sh --output deploy_pages.sh
+  - chmod +x deploy_pages.sh
+  - ./deploy_pages.sh
   artifacts:
     paths:
     - public

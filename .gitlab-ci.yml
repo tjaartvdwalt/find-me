@@ -35,7 +35,7 @@ test:
 pages:
   image: alpine:latest
   before_script:
-    - apk update && apk add ruby ruby-irb ruby-rdoc
+    - apk update && apk add bash curl ruby ruby-irb ruby-rdoc
     - gem install coderay kramdown
   stage: deploy
   script:
@@ -43,9 +43,10 @@ pages:
   - mkdir -p public/demo
   - cp dist/* public/demo
   # make the website
-  - curl http://cdn.tjaart.org/gitlab/deploy_pages.sh --output deploy_pages.sh
-  - chmod +x deploy_pages.sh
-  - ./deploy_pages.sh
+  - mkdir -p public
+  - curl http://cdn.tjaart.org/gitlab/index.html.erb --output index.html.erb
+  - sed -i "s@#CI_PROJECT_URL#@${CI_PROJECT_URL}@" index.html.erb
+  - 'kramdown --template index.html.erb  --syntax-highlighter coderay --syntax-highlighter-opts "{line_numbers: false}" README.md > public/index.html'
   artifacts:
     paths:
     - public
